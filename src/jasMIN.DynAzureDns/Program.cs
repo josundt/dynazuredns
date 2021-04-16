@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace jasMIN.DynAzureDns
@@ -16,6 +18,15 @@ namespace jasMIN.DynAzureDns
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseEnvironment(Debugger.IsAttached ? "Development" : "Production")
+                .ConfigureLogging(builder =>
+                    builder.AddSimpleConsole(options =>
+                    {
+                        options.IncludeScopes = false;
+                        options.SingleLine = true;
+                        options.TimestampFormat = "yyyy-MM-dd HH:mm:ss ";
+                    })
+                )
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.Configure<DynAzureDnsOptions>(hostContext.Configuration.GetSection(DynAzureDnsOptions.SectionName));

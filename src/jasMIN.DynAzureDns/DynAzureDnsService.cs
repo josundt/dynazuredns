@@ -15,19 +15,19 @@ namespace jasMIN.DynAzureDns
     public class DynAzureDnsService : IDynAzureDnsService
     {
         private readonly IOptions<DynAzureDnsOptions> _optionsWrapper;
-        private readonly ILogger<DynAzureDnsService> _logger;
+        private readonly ILogger _logger;
 
-        public DynAzureDnsService(IOptions<DynAzureDnsOptions> optionsWrapper, ILogger<DynAzureDnsService> logger)
+        public DynAzureDnsService(IOptions<DynAzureDnsOptions> optionsWrapper, ILoggerFactory loggerFactory)
         {
             this._optionsWrapper = optionsWrapper;
-            this._logger = logger;
+            this._logger = loggerFactory.CreateLogger("DynAzureDns");
         }
 
         public async Task<bool> UpdateDnsIfExternalIpChangedAsync(CancellationToken cancellationToken = default)
         {
             var stopWatch = Stopwatch.StartNew();
             var options = this._optionsWrapper.Value;
-            this._logger.LogInformation($"[{DateTimeOffset.Now:g}] Starting Dynamic DNS Update ");
+            this._logger.LogInformation($"DYNAMIC DNS UPDATE STARTING");
             this._logger.LogInformation("Getting external/public IP Address...");
             var externalIp = await GetExternalIpAddressAsync(options.ExternalIpProviderUrl, cancellationToken);
             this._logger.LogInformation($"Public IP Address is {externalIp}");
@@ -42,7 +42,7 @@ namespace jasMIN.DynAzureDns
             {
                 this._logger.LogInformation($"Azure DNS record {options.DnsRecordName}.{options.DnsZoneName} was not updated (ip address unchanged)");
             }
-            this._logger.LogInformation($"[{DateTimeOffset.Now:g}] Ending Dynamic DNS Update (time taken: {stopWatch.ElapsedMilliseconds/1_000}s)");
+            this._logger.LogInformation($"DYNAMIC DNS UPDATE ENDED (time taken: {stopWatch.ElapsedMilliseconds/1_000}s)");
             return wasUpdated;
         }
 
