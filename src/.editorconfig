@@ -21,12 +21,6 @@ trim_trailing_whitespace = false
 # C# files
 [*.cs]
 
-#### Core EditorConfig Options ####
-
-# New line preferences
-end_of_line = crlf
-insert_final_newline = false
-
 #### .NET Code Actions ####
 
 # Type members
@@ -183,6 +177,8 @@ csharp_prefer_system_threading_lock = true
 
 csharp_style_prefer_primary_constructors = true
 
+csharp_style_prefer_simple_property_accessors = true
+
 csharp_style_prefer_top_level_statements = true
 csharp_style_prefer_top_level_statements.severity = suggestion
 
@@ -193,11 +189,13 @@ csharp_prefer_simple_default_expression.severity = suggestion
 csharp_style_deconstructed_variable_declaration = true
 csharp_style_implicit_object_creation_when_type_is_apparent = true
 csharp_style_inlined_variable_declaration = true
+csharp_style_prefer_implicitly_typed_lambda_expression = true
 csharp_style_prefer_index_operator = true
 csharp_style_prefer_local_over_anonymous_function = true
 csharp_style_prefer_null_check_over_type_check = true
 csharp_style_prefer_range_operator = true
 csharp_style_prefer_tuple_swap = true
+csharp_style_prefer_unbound_generic_type_in_nameof = true
 csharp_style_prefer_utf8_string_literals = true
 csharp_style_throw_expression = true
 csharp_style_unused_value_assignment_preference = discard_variable
@@ -218,11 +216,12 @@ csharp_style_allow_embedded_statements_on_same_line_experimental = true
 
 # New line preferences
 csharp_new_line_before_catch = true
+csharp_new_line_before_closing_parenthesis = true
 csharp_new_line_before_else = true
 csharp_new_line_before_finally = true
 csharp_new_line_before_members_in_anonymous_types = true
 csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_open_brace = all
+csharp_new_line_before_open_brace = none
 csharp_new_line_between_query_expression_clauses = true
 
 # Indentation preferences

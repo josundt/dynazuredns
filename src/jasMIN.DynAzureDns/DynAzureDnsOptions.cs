@@ -2,8 +2,7 @@ namespace jasMIN.DynAzureDns;
 
 #nullable disable
 
-public class DynAzureDnsOptions
-{
+public class DynAzureDnsOptions {
     public const string SectionName = "DynAzureDns";
     public Uri ExternalIpProviderUrl { get; set; }
     public string AzureAdTenantId { get; set; }

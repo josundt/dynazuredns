@@ -12,15 +12,13 @@ IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
         .UseEnvironment(Debugger.IsAttached ? "Development" : "Production")
         .ConfigureLogging(builder =>
-            builder.AddSimpleConsole(options =>
-            {
+            builder.AddSimpleConsole(options => {
                 options.IncludeScopes = false;
                 options.SingleLine = true;
                 options.TimestampFormat = "yyyy-MM-dd HH:mm:ss ";
             })
         )
-        .ConfigureServices((hostContext, services) =>
-        {
+        .ConfigureServices((hostContext, services) => {
             services.Configure<DynAzureDnsOptions>(hostContext.Configuration.GetSection(DynAzureDnsOptions.SectionName));
             services.AddSingleton<IDynAzureDnsService, DynAzureDnsService>();
         });
