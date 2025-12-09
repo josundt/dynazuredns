@@ -8,8 +8,8 @@ var host = CreateHostBuilder(args).Build();
 var service = host.Services.GetService<IDynAzureDnsService>()!;
 await service.UpdateDnsIfExternalIpChangedAsync();
 
-IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
+static IHostBuilder CreateHostBuilder(string[] args) {
+    return Host.CreateDefaultBuilder(args)
         .UseEnvironment(Debugger.IsAttached ? "Development" : "Production")
         .ConfigureLogging(builder =>
             builder.AddSimpleConsole(options => {
@@ -22,3 +22,4 @@ IHostBuilder CreateHostBuilder(string[] args) =>
             services.Configure<DynAzureDnsOptions>(hostContext.Configuration.GetSection(DynAzureDnsOptions.SectionName));
             services.AddSingleton<IDynAzureDnsService, DynAzureDnsService>();
         });
+}
